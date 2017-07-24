@@ -59,7 +59,7 @@ def registration(request):
 def profile(request):
     member = Members.objects.get(name=request.user)
     weighins = Weighins.objects.filter(member=member)
-    payments = Payments.objects.filter(member=request.user.id)
+    payments = Payments.objects.filter(member=member)
     weight_list = []
     for w in weighins:
         wl = float(member.initial_weight) - float(w.weight)
