@@ -1,5 +1,6 @@
 # ignore settings file
 settings.py
+settings_prod.py
 
 # Windows image file caches
 Thumbs.db
@@ -61,6 +62,8 @@ __pycache__/
 *.pyc
 */migrations/*.py
 !*/migrations/__init__.py
+*/media/
+
 
 # C extensions
 *.so

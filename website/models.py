@@ -29,12 +29,33 @@ class Weighins(models.Model):
     bum = models.CharField(max_length=5,verbose_name='Bum (inches)',blank=True)
     chest = models.CharField(max_length=5,verbose_name='Chest (inches)',blank=True)
 
+    class Meta:
+        verbose_name = 'Weighin'
+        verbose_name_plural = 'Weighins'
+
+    def __str__(self):
+        return self.member.name
+
 class ProgressPhotos(models.Model):
     member = models.ForeignKey(Members,related_name='photos',null=True,on_delete=models.PROTECT) #set_null does not delete the equipment when deleting the photo
     photo = models.FileField(upload_to='member_progress',blank=False)
     date = models.DateField()
 
+    class Meta:
+        verbose_name = 'Progress Photo'
+        verbose_name_plural = 'Progress Photos'
+
+    def __str__(self):
+        return self.member.name
+
 class Payments(models.Model):
     member = models.ForeignKey(Members,null=True,on_delete=models.PROTECT)
     amount = models.IntegerField()
     date = models.DateField()
+
+    class Meta:
+        verbose_name = 'Payment'
+        verbose_name_plural = 'Payments'
+
+    def __str__(self):
+        return self.member.name

@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib import messages
 from django.utils import timezone
 from django.db.models import Max
+from operator import itemgetter
 from .models import *
 from .forms import *
 
@@ -12,6 +13,9 @@ def index(request):
         members = Members.objects.all()
         members_list = []
         for member in members:
+            check_member = Weighins.objects.filter(member=member)
+            if not check_member:
+                continue
             wi = Weighins.objects.filter(member=member).latest('date')
             member = Members.objects.get(name=member.name.id)
             bwp = ((float(member.initial_weight) - float(wi.weight)) / float(member.initial_weight)) * 100
@@ -22,8 +26,8 @@ def index(request):
             mbwp['bwp'] = bwp
             mbwp['photo'] = member.photo.url
             members_list.append(mbwp)
-
-        return render(request, 'website/home.html',{'weighins':members_list})
+        ml = sorted(members_list, key=itemgetter('bwp'), reverse=True)
+        return render(request, 'website/home.html',{'weighins':ml})
     else:
         return render(request, 'website/index.html',{})
 

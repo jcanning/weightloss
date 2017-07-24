@@ -25,7 +25,7 @@ SECRET_KEY = 'yj!20fs(w4*_221uxb78ajm_r#1lkqt&_86%^18a3h#yd&6gl^'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.0.255','johns-macbook-pro.local','127.0.0.1','localhost']
+ALLOWED_HOSTS = ['weightloss.pythonanywhere.com','127.0.0.1','localhost']
 
 
 # Application definition
@@ -78,10 +78,10 @@ WSGI_APPLICATION = 'weightlosssite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME':'weightloss',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',
+        'NAME':'weightloss$default',
+        'USER': 'weightloss',
+        'PASSWORD': 'Peanuts11!',
+        'HOST': 'weightloss.mysql.pythonanywhere-services.com',
     }
 }
 
