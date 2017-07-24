@@ -1,0 +1,91 @@
+body {
+  background-color: #FFFFFF;
+}
+
+.hidden.menu {
+  display: none;
+}
+
+.secondary.pointing.menu .toc.item {
+  display: none;
+}
+
+.ui.menu .item img.logo {
+  margin-right: 1.5em;
+}
+.main.container {
+  margin-top: 7em;
+}
+.wireframe {
+  margin-top: 2em;
+}
+.ui.footer.segment {
+  margin: 5em 0em 0em;
+  padding: 5em 0em;
+}
+.errorlist{
+  list-style: none;
+  list-style-type: none;
+  display: inline-block;
+  padding:0;
+  color: #ff0000;
+}
+
+.text.white {
+  color: #FFFFFF;
+}
+.text.grey {
+  color: #CCCCCC;
+}
+.text.black {
+  color: #1B1C1D;
+}
+.text.yellow {
+  color: #F2C61F;
+}
+.text.teal {
+  color: #00B5AD;
+}
+.text.red {
+  color: #D95C5C;
+}
+.text.purple {
+  color: #564F8A;
+}
+.text.pink {
+  color: #D9499A;
+}
+.text.orange {
+  color: #E07B53;
+}
+.text.green {
+  color: #5BBD72;
+}
+.text.blue {
+  color: #3B83C0;
+}
+
+
+@media only screen and (max-width: 700px) {
+  .ui.fixed.menu {
+    display: none !important;
+  }
+  .secondary.pointing.menu .item,
+  .secondary.pointing.menu .menu {
+    display: none;
+  }
+  .secondary.pointing.menu .toc.item {
+    display: block;
+  }
+  .masthead.segment {
+    min-height: 350px;
+  }
+  .masthead h1.ui.header {
+    font-size: 2em;
+    margin-top: 1.5em;
+  }
+  .masthead h2 {
+    margin-top: 0.5em;
+    font-size: 1.5em;
+  }
+}

@@ -1,0 +1,112 @@
+{% extends 'website/base.html' %}
+{% load mathfilters %}
+
+{% block header %}
+<div class="ui feed">
+  <div class="event">
+    <div class="label">
+      <img src="{{ member.photo.url }}">
+    </div>
+    <div class="content">
+      <h3>{{ member.name.first_name }}, Time to add your next weighin!</h3>
+    </div>
+  </div>
+</div>
+<p>Keep up the good work!</p>
+{% endblock %}
+
+{% block content %}
+
+{% if messages %}
+<div class="ui grid">
+  <div class="row">
+    <div class="three wide column"></div>
+    <div class="ten wide column">
+      {% for message in messages %}
+      <div class="ui {% if message.tags == 'success' %}success{% else %}error{% endif %} message">
+        {% if message.tags == 'success' %}
+        <div class="header">
+          Weighin Added!
+        </div>
+        {% else %}
+        <div class="header">
+          Weighin Failed!
+        </div>
+        {% endif %}
+        <p>{{ message }}</p>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="three wide column"></div>
+  </div>
+</div>
+{% endif %}
+
+<div class="ui grid">
+  <div class="row">
+    <div class="three wide column"></div>
+    <div class="ten wide column">
+      <form class="ui form" enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        {{ weighinform.errors }}
+        <input type="hidden" name="weighin-member" required id="id_weighin-member" value="{{ member.id }}">
+        <h4 class="ui dividing header">Add Weighin</h4>
+        <div class="two fields">
+          <div class="field">
+            <label for="">Date{{ weighinform.date.errors }}</label>
+            <input type="date" autofocus name="weighin-date" required id="id_weighin-date">
+          </div>
+          <div class="field">
+            <label for="">Weight {{ weighinform.weight.errors }}</label>
+            <input type="text" name="weighin-weight" maxlength="5" required id="id_weighin-weight" placeholder=" Enter Weight">
+          </div>
+        </div>
+        <div class="field">
+          <label for="">Photo {{ weighinform.photo.errors }}</label>
+          <input type="file" name="weighin-photo" required id="id_weighin-photo" placeholder="Photo">
+        </div>
+
+        <h4 class="ui dividing header">Enter Body Messurements <span class="small">(not required)</a></h4>
+        <div class="two fields">
+          <div class="field">
+            <label for="">{{ weighinform.left_arm.label }} {{ weighinform.left_arm.errors }}</label>
+            <input type="text" name="weighin-left_arm" maxlength="5" id="id_weighin-left_arm" placeholder="Left Arm">
+          </div>
+          <div class="field">
+            <label for="">{{ weighinform.right_arm.label }} {{ weighinform.right_arm.errors }}</label>
+            <input type="text" name="weighin-right_arm" maxlength="5" id="id_weighin-right_arm" placeholder="Right Arm">
+          </div>
+        </div>
+        <div class="two fields">
+          <div class="field">
+            <label for="">{{ weighinform.left_leg.label }} {{ weighinform.left_leg.errors }}</label>
+            <input type="text" name="weighin-left_leg" maxlength="5" id="id_weighin-left_leg" placeholder="Left Leg">
+          </div>
+          <div class="field">
+            <label for="">{{ weighinform.right_leg.label }} {{ weighinform.right_leg.errors }}</label>
+            <input type="text" name="weighin-right_leg" maxlength="5" id="id_weighin-right_leg" placeholder="Right Leg">
+          </div>
+        </div>
+        <div class="three fields">
+          <div class="field">
+            <label for="">{{ weighinform.waist.label }} {{ weighinform.waist.errors }}</label>
+            <input type="text" name="weighin-waist" maxlength="5" id="id_weighin-waist" placeholder="Waist">
+          </div>
+          <div class="field">
+            <label for="">{{ weighinform.bum.label }} {{ weighinform.bum.errors }}</label>
+            <input type="text" name="weighin-bum" maxlength="5" id="id_weighin-bum" placeholder="Bum">
+          </div>
+          <div class="field">
+            <label for="">{{ weighinform.chest.label }} {{ weighinform.chest.errors }}</label>
+            <input type="text" name="weighin-chest" maxlength="5" id="id_weighin-chest" placeholder="Chest">
+          </div>
+        </div>
+        <div class="">
+          <button class="ui right floated small primary labeled icon button" tabindex="0"><i class="plus icon"></i> Submit Weighin</button>
+        </div>
+      </form>
+    </div>
+    <div class="three wide column"></div>
+  </div>
+</div>
+{% endblock %}

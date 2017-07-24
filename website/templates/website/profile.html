@@ -1,0 +1,100 @@
+{% extends 'website/base.html' %}
+{% load mathfilters %}
+
+{% block header %}
+<div class="ui grid">
+  <div class="row">
+    <div class="three wide column"></div>
+    <div class="ten wide column">
+      <br>
+      <div class="ui feed">
+        <div class="event">
+          <div class="label">
+            <img src="{{ member.photo.url }}">
+          </div>
+          <div class="content">
+            <h3>{{ member.name.first_name }}'s Awesome Profile Page</h3>
+            <p>Wow! Good Job! Now lets show everyone else how you are doing!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+{% if messages %}
+<div class="ui grid">
+  <div class="row">
+    <div class="three wide column"></div>
+    <div class="ten wide column">
+      {% for message in messages %}
+      <div class="ui {% if message.tags == 'success' %}success{% else %}error{% endif %} message">
+        {% if message.tags == 'success' %}
+        <div class="header">
+          Weighin Added!
+        </div>
+        {% else %}
+        <div class="header">
+          Weighin Failed!
+        </div>
+        {% endif %}
+        <p>{{ message }}</p>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="three wide column"></div>
+  </div>
+</div>
+{% endif %}
+
+<br>
+<div class="ui grid">
+  <div class="row">
+    <div class="three wide column"></div>
+    <div class="ten wide column">
+      <p>Total Paid into the challenge: <span class="{% if payment_total < 50 %}text red{% elif payment_total >= 50 %}text green{% endif %}">${{ payment_total }}</span></p>
+      <p class="red text"><i class="icon up arrow"></i> = Weight Gain</p>
+      <p class="green text"><i class="icon down arrow"></i> = Weight Loss</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="three wide column"></div>
+    <div class="ten wide column">
+      <table class="ui unstackable compact single line celled table">
+        <thead>
+          <tr>
+            <th>Date</th>
+            <th>Weight</th>
+            <th>Total Loss/Gain</th>
+            <th>Percentage</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for weighin in weight_list %}
+          <tr class="{% if member.initial_weight < weighin.weight %}negative{% elif member.initial_weight > weighin.weight %}positive{% elif member.initial_weight == weighin.weight%}warning{% endif %}">
+            <td>{{ weighin.date }}</td>
+            <td>{{ weighin.weight }}</td>
+            <td>{% if member.initial_weight < weighin.weight %}<i class="icon up arrow"></i>{% elif member.initial_weight > weighin.weight %}<i class="icon down arrow"></i>{% endif %}
+              {{ weighin.weight_loss | floatformat}}</td>
+            <td>{{ weighin.body_weight_percentage | floatformat }}%</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+        <tfoot class="full-width">
+          <tr>
+            <th colspan="4">
+              <div >
+                <a class="ui right floated small primary labeled icon button" href="{% url 'add_weighin' %}"><i class="plus icon"></i> Add Weighin</a>
+              </div>
+            </th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+
+
+</div>
+{% endblock %}

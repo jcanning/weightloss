@@ -1,0 +1,58 @@
+﻿{% extends "website/base.html" %}
+{% load staticfiles %}
+{% block css %}
+<style media="screen">
+/* login */
+body > .grid {
+  height: 100%;
+}
+.image {
+  margin-top: -100px;
+}
+.column {
+  max-width: 450px;
+}
+</style>
+{% endblock %}
+{% block header %}
+
+<div class="ui middle aligned center aligned grid">
+  <div class="column">
+    <h2 class="ui teal image header">
+      <img src="{% static '/assets/imgs/logo.png' %}" class="image">
+      <div class="content">
+        Log-in to your account
+      </div>
+    </h2>
+    <form method="post" class="ui large form" action="{% url 'login' %}">
+      {% csrf_token %}
+      <div class="ui stacked segment">
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="user icon"></i>
+            <input type="text" name="username" autofocus maxlength="254" required id="id_username" placeholder="User Name">
+          </div>
+        </div>
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="lock icon"></i>
+            <input type="password" name="password" required id="id_password" placeholder="Password">
+          </div>
+        </div>
+        <input type="submit" class="ui fluid large teal submit button" value="Login">
+      </div>
+      {% if form.errors %}
+      <div class="ui error message">
+        <p>Your username and password didn't match. Please try again.</p>
+      </div>
+      {% endif %}
+
+    </form>
+
+    <div class="ui message">
+      Not Registered? <a href="{% url 'register' %}">Sign Up</a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

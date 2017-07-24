@@ -1,0 +1,97 @@
+{% extends 'website/base.html' %}
+
+{% block header %}
+{% if messages %}
+<div class="ui grid">
+  <div class="row">
+    <div class="three wide column"></div>
+    <div class="sixteen wide column">
+      {% for message in messages %}
+      <div class="ui {% if message.tags == 'success' %}success{% else %}error{% endif %} message">
+        {% if message.tags == 'success' %}
+        <div class="header">
+          Registration Succesfull!
+        </div>
+        {% else %}
+        <div class="header">
+          Registration Failed!
+        </div>
+        {% endif %}
+        <p>{{ message }}</p>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="three wide column"></div>
+  </div>
+</div>
+{% endif %}
+<div class="ui grid">
+  <div class="row">
+    <div class="three wide column"></div>
+    <div class="ten wide column">
+      <br>
+      <h3>Welecome {{ request.user.first_name }} to your challenge page</h3>
+      <p>What you will find here is how you are doing and how you are doing compared to the other folks in your challenge.</p>
+      <div class="ui info message">
+        <p>Remeber to stay strong and focused. Also remember that not everyone loses weight the same way or the same speed. Keep your chin up and you will find that with persistance you can still come out on top.</p>
+        <p>In the end, we are all winners for wanting a better, healthier life and we are all proud of you.</p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<br/><br/><br/>
+<div class="ui grid">
+  <div class="row">
+    <div class="three wide column"></div>
+    <div class="ten wide column">
+      <h3>How do you compare to the rest of the challenge members?</h3>
+    </div>
+    <div class="three wide column"></div>
+  </div>
+  <div class="row">
+    <div class="three wide column"></div>
+    <div class="ten wide column">
+      <p class="red text"><i class="icon up arrow"></i> = Weight Gain</p>
+      <p class="green text"><i class="icon down arrow"></i> = Weight Loss</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="three wide column"></div>
+    <div class="ten wide column">
+      <table class="ui celled table">
+        <thead>
+          <tr>
+            <th>Member</th>
+            <th>Percentage</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for weighin in weighins %}
+          <tr class="{% if weighin.initial_weight < weighin.weight %}negative{% elif weighin.initial_weight > weighin.weight %}positive{% elif weighin.initial_weight == weighin.weight%}warning{% endif %}">
+            <td>
+              <div class="ui feed">
+                <div class="event">
+                  <div class="label">
+                    <img src="{{ weighin.photo }}">
+                  </div>
+                  <div class="content">
+                    {{ weighin.member }}
+                  </div>
+                </div>
+              </div>
+            </td>
+            <td>
+              {% if weighin.initial_weight < weighin.weight %}<i class="icon up arrow"></i>{% elif weighin.initial_weight > weighin.weight %}<i class="icon down arrow"></i>{% endif %}
+              {{ weighin.bwp | floatformat }}%</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

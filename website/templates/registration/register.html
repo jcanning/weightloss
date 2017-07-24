@@ -1,0 +1,95 @@
+﻿{% extends "website/base.html" %}
+{% block header %}
+{% endblock %}
+{% block content %}
+{% if messages %}
+<div class="ui grid">
+  <div class="row">
+    <div class="three wide column"></div>
+    <div class="sixteen wide column">
+      {% for message in messages %}
+      <div class="ui {% if message.tags == 'success' %}success{% else %}error{% endif %} message">
+        {% if message.tags == 'success' %}
+        <div class="header">
+          Registration Succesfull!
+        </div>
+        {% else %}
+        <div class="header">
+          Registration Failed!
+        </div>
+        {% endif %}
+        <p>{{ message }}</p>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="three wide column"></div>
+  </div>
+</div>
+{% endif %}
+
+<div class="ui grid">
+  <div class="row">
+    <div class="three wide column"></div>
+    <div class="ten wide column">
+      <div class="ui large header">Registration</div>
+      <div class="ui tiny header">Would the real Slim Shady please sign up, please sign up, please sign up?</div>
+      <br/>
+      <form class="ui form" enctype="multipart/form-data" method="post">
+        {% csrf_token %}
+        <h4 class="ui dividing header">Login Information</h4>
+        <div class="two fields">
+          <div class="field">
+            <label for="">User Name {{ userform.username.errors }}</label>
+
+            <input type="text" autofocus name="user-username" maxlength="150" autofocus required id="id_user-username" placeholder="User Name" value="{% if userform.username.value %}{{ userform.username.value }}{% endif %}">
+          </div>
+          <div class="field">
+            <label for="">Email {{ userform.email.errors }}</label>
+            <input type="email" name="user-email" required id="id_user-email" placeholder="Email" value="{% if userform.email.value %}{{ userform.email.value }}{% endif %}">
+          </div>
+        </div>
+        <div class="two fields">
+          <div class="field">
+            <label for="">Password {{ userform.password1.errors }} {{ userform.password2.errors }}</label>
+            <input type="password" name="user-password1" required id="id_user-password1" placeholder="Password">
+          </div>
+          <div class="field">
+            <label for="">Confirm Password</label>
+            <input type="password" name="user-password2" required id="id_user-password2" placeholder="Password">
+          </div>
+        </div>
+
+        <h4 class="ui dividing header">Member Information</h4>
+        <div class="field">
+          <label>Name {{ userform.first_name.errors }} {{ userform.last_name.errors }}</label>
+          <div class="two fields">
+            <div class="field">
+              <input type="text" name="user-first_name" required id="id_user-first_name" placeholder="First Name" value="{% if userform.first_name.value %}{{ userform.first_name.value }}{% endif %}">
+            </div>
+            <div class="field">
+              <input type="text" name="user-last_name" required id="id_user-last_name" placeholder="Last Name" value="{% if userform.last_name.value %}{{ userform.last_name.value }}{% endif %}">
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label for="">Photo {{ memberform.photo.errors }}</label>
+          <input type="file" name="userprofile-photo" id="id_userprofile-photo" placeholder="Photo">
+        </div>
+        <h4 class="ui dividing header">Weight Information</h4>
+        <div class="two fields">
+          <div class="field">
+            <label for="">Goal Weight {{ memberform.goal_weight.errors }}</label>
+            <input type="text" name="userprofile-goal_weight" required id="id_userprofile-goal_weight" placeholder="Goal Weight (i.e. 150.0)" value="{% if memberform.goal_weight.value %}{{ memberform.goal_weight.value }}{% endif %}">
+          </div>
+          <div class="field">
+            <label for="">Initial Weight {{ memberform.initial_weight.errors }}</label>
+            <input type="text" name="userprofile-initial_weight" required id="id_userprofile-initial_weight" placeholder="Initial Weigh In Weight (i.e. 251.7)" value="{% if memberform.initial_weight.value %}{{ memberform.initial_weight.value }}{% endif %}">
+          </div>
+        </div>
+        <button class="ui button" tabindex="0">Submit Registration</button>
+      </form>
+    </div>
+    <div class="three wide column"></div>
+  </div>
+</div>
+{% endblock %}
