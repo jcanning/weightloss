@@ -34,7 +34,7 @@ class Weighins(models.Model):
         verbose_name_plural = 'Weighins'
 
     def __str__(self):
-        return self.member.name
+        return '{} {}'.format(self.member.name.first_name,self.member.name.last_name)
 
 class ProgressPhotos(models.Model):
     member = models.ForeignKey(Members,related_name='photos',null=True,on_delete=models.PROTECT) #set_null does not delete the equipment when deleting the photo
@@ -46,7 +46,7 @@ class ProgressPhotos(models.Model):
         verbose_name_plural = 'Progress Photos'
 
     def __str__(self):
-        return self.member.name
+        return '{} {}'.format(self.member.name.first_name,self.member.name.last_name)
 
 class Payments(models.Model):
     member = models.ForeignKey(Members,null=True,on_delete=models.PROTECT)
@@ -58,4 +58,4 @@ class Payments(models.Model):
         verbose_name_plural = 'Payments'
 
     def __str__(self):
-        return self.member.name
+        return '{} {}'.format(self.member.name.first_name,self.member.name.last_name)
