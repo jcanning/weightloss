@@ -66,6 +66,7 @@
           <tr>
             <th>Member</th>
             <th>Percentage</th>
+            <th>Last Weighin</th>
           </tr>
         </thead>
         <tbody>
@@ -86,6 +87,7 @@
             <td>
               {% if weighin.initial_weight < weighin.weight %}<i class="icon up arrow"></i>{% elif weighin.initial_weight > weighin.weight %}<i class="icon down arrow"></i>{% endif %}
               {{ weighin.bwp | floatformat }}%</td>
+            <td>{{ weighin.last_weighin }}</td>
           </tr>
           {% endfor %}
         </tbody>

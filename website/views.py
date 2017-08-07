@@ -25,6 +25,7 @@ def index(request):
             mbwp['weight'] = wi.weight
             mbwp['bwp'] = bwp
             mbwp['photo'] = member.photo.url
+            mbwp['last_weighin'] = wi.date
             members_list.append(mbwp)
         ml = sorted(members_list, key=itemgetter('bwp'), reverse=True)
         return render(request, 'website/home.html',{'weighins':ml})
